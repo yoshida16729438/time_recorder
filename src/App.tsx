@@ -1,24 +1,22 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import "./App.css";
+import TimeCtl from "./components/atoms/time/TimeCtl";
+import NormalButton from "./components/atoms/button/NormalButton";
+import SecondaryButton from "./components/atoms/button/SecondaryButton";
+import { time } from "./utils/timeUtil";
 
 function App() {
+  const [curtime, setCurTime] = useState(time.getCurrent());
+  const min = time.fromString("06:00");
+  const max = time.fromString("15:00");
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <NormalButton onClick={() => alert("click")}>wei</NormalButton>
+      <SecondaryButton onClick={() => alert("secondary")}>
+        soiya
+      </SecondaryButton>
+      <TimeCtl min={min} max={max} value={curtime} onChange={setCurTime} />
     </div>
   );
 }
