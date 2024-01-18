@@ -1,3 +1,12 @@
+# 概要
+1分単位で作業内容を記録し、合計の時間を計算するシングルページアプリです。\
+ReactとTypescriptで作ります。\
+サーバーとの通信はしないので、ビルドして得られるhtml・css・javascriptを繋ぎ合わせればスタンドアロンで利用できます。
+
+以下はテンプレートのまま
+
+---
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
