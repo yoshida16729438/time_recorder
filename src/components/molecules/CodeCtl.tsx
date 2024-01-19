@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { RefObject, useState } from "react";
 import SelectCode from "../atoms/select/SelectCode";
 
 const CodeCtl: React.FC<{
   value: string;
   setValue: React.Dispatch<React.SetStateAction<string>>;
+  newCodeElement: RefObject<HTMLInputElement>;
 }> = (props) => {
-  const [useNewCode, setDisabled] = useState(false);
+  const [useNewCode, setUseNewCode] = useState(false);
   return (
     <div>
       <div>
@@ -18,7 +19,7 @@ const CodeCtl: React.FC<{
       <label>
         <input
           type="checkbox"
-          onChange={(e) => setDisabled(e.target.checked)}
+          onChange={(e) => setUseNewCode(e.target.checked)}
         />
         新しいチャージコードを使用&nbsp;&nbsp;&nbsp;
       </label>
@@ -27,6 +28,7 @@ const CodeCtl: React.FC<{
         minLength={1}
         title="新規チャージコード"
         disabled={!useNewCode}
+        ref={props.newCodeElement}
       />
     </div>
   );

@@ -1,28 +1,36 @@
-import { FC, useState } from "react";
+import { FC, useRef, useState } from "react";
 
-import TimeCtl from "../atoms/time/TimeCtl";
-import NormalButton from "../atoms/button/NormalButton";
-import SecondaryButton from "../atoms/button/SecondaryButton";
+import { CodeContextProvider } from "../../providers/CodeProvider";
+import { EditingProvider } from "../../providers/EditStatusProvider";
 import { time } from "../../utils/timeUtil";
 import CodeCtl from "../molecules/CodeCtl";
-import WorkStartTime from "../molecules/WorkStartTime";
+import Header from "../templates/Header";
+import WorkStartTimeOrgan from "../organisms/WorkStartTimeOrgan";
+import Container from "../templates/Container";
 
 const Main: FC = () => {
-  const [curtime, setCurTime] = useState(time.getCurrent());
-  const min = time.fromString("06:00");
-  const max = time.fromString("15:00");
+  const [startTime, setStartTime] = useState(time.getCurrent());
   const [code, setCode] = useState("");
+  const newCodeElement = useRef<HTMLInputElement>(null);
 
   return (
-    <div className="App">
-      <NormalButton onClick={() => alert("click")}>wei</NormalButton>
-      <SecondaryButton onClick={() => alert("secondary")}>
-        soiya
-      </SecondaryButton>
-      <TimeCtl min={min} max={max} value={curtime} onChange={setCurTime} />
-      <CodeCtl value={code} setValue={setCode} />
-      <WorkStartTime value={curtime} setValue={setCurTime} />
-    </div>
+    <CodeContextProvider>
+      <EditingProvider>
+        <Header />
+        <Container>
+          <WorkStartTimeOrgan
+            workStartTime={startTime}
+            setWorkStartTime={setStartTime}
+          />
+          <hr />
+          <CodeCtl
+            value={code}
+            setValue={setCode}
+            newCodeElement={newCodeElement}
+          />
+        </Container>
+      </EditingProvider>
+    </CodeContextProvider>
   );
 };
 

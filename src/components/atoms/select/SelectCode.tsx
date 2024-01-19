@@ -18,7 +18,7 @@ const SelectCode: React.FC<{
     >
       <option value="">選択してください</option>
       {codes.map((code) => (
-        <option value={code}>{code}</option>
+        <option value={code} key={code}>{code}</option>
       ))}
     </select>
   );
