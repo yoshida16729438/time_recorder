@@ -1,24 +1,26 @@
 import React from "react";
 import { useCodeContext } from "../../../providers/CodeProvider";
+import { ValueSetterPair } from "../../../types/types";
 
 const SelectCode: React.FC<{
-  value: string;
-  setValue: React.Dispatch<React.SetStateAction<string>>;
   disabled: boolean;
+  valueSetter: ValueSetterPair<string>;
 }> = (props) => {
   const { codes } = useCodeContext();
 
   return (
     <select
       style={{ width: "300px" }}
-      onChange={(e) => props.setValue(e.target.value)}
-      value={props.value}
       disabled={props.disabled}
       title="チャージコード選択"
+      value={props.valueSetter.value}
+      onChange={(e) => props.valueSetter.setValue(e.target.value)}
     >
       <option value="">選択してください</option>
       {codes.map((code) => (
-        <option value={code} key={code}>{code}</option>
+        <option value={code} key={code}>
+          {code}
+        </option>
       ))}
     </select>
   );

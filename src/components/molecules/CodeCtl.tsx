@@ -1,25 +1,25 @@
-import React, { RefObject, useState } from "react";
+import React from "react";
 import SelectCode from "../atoms/select/SelectCode";
+import { ValueSetterPair } from "../../types/types";
 
 const CodeCtl: React.FC<{
-  value: string;
-  setValue: React.Dispatch<React.SetStateAction<string>>;
-  newCodeElement: RefObject<HTMLInputElement>;
+  selectCodeSetter: ValueSetterPair<string>;
+  useNewCodeSetter: ValueSetterPair<boolean>;
+  newCodeSetter: ValueSetterPair<string>;
 }> = (props) => {
-  const [useNewCode, setUseNewCode] = useState(false);
   return (
     <div>
       <div>
         <SelectCode
-          value={props.value}
-          setValue={props.setValue}
-          disabled={useNewCode}
+          disabled={props.useNewCodeSetter.value}
+          valueSetter={props.selectCodeSetter}
         />
       </div>
       <label>
         <input
           type="checkbox"
-          onChange={(e) => setUseNewCode(e.target.checked)}
+          checked={props.useNewCodeSetter.value}
+          onChange={(e) => props.useNewCodeSetter.setValue(e.target.checked)}
         />
         新しいチャージコードを使用&nbsp;&nbsp;&nbsp;
       </label>
@@ -27,11 +27,31 @@ const CodeCtl: React.FC<{
         type="text"
         minLength={1}
         title="新規チャージコード"
-        disabled={!useNewCode}
-        ref={props.newCodeElement}
+        disabled={!props.useNewCodeSetter.value}
+        value={props.newCodeSetter.value}
+        onChange={(e) => props.newCodeSetter.setValue(e.target.value)}
       />
     </div>
   );
 };
 
 export default CodeCtl;
+
+export const validate = (
+  code: string,
+  useNewCode: boolean,
+  newCode: string
+) => {
+  if (useNewCode) {
+    if (newCode === "") {
+      alert("コードが入力されていません");
+      return false;
+    }
+  } else {
+    if (code === "") {
+      alert("コードが選択されていません");
+      return false;
+    }
+  }
+  return true;
+};

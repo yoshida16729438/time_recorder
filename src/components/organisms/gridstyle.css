@@ -1,0 +1,18 @@
+.grid {
+  padding: 0;
+  margin: 0;
+  display: grid;
+}
+
+.grid-2cols {
+  grid-template-columns: 2fr 9fr;
+}
+
+.grid-3cols {
+  grid-template-columns: 2fr 9fr 2fr;
+}
+.grid-item{
+    border-bottom: 1px solid #ccc;
+    border-left: 1px solid #ccc;
+    padding: 5px 5px 5px 5px;
+}

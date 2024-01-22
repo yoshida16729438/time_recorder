@@ -7,15 +7,12 @@ const WorkStartTimeOrgan: FC<{
   setWorkStartTime: Dispatch<SetStateAction<time>>;
 }> = (props) => {
   return (
-    <>
-      <h1>勤務開始時刻</h1>
-      <div>
-        <WorkStartTime
-          value={props.workStartTime}
-          setValue={props.setWorkStartTime}
-        />
-      </div>
-    </>
+    <div>
+      <WorkStartTime
+        value={props.workStartTime}
+        setValue={props.setWorkStartTime}
+      />
+    </div>
   );
 };
 
