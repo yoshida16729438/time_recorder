@@ -1,11 +1,11 @@
 import React from "react";
-import { time } from "../../../utils/timeUtil";
+import { Time } from "../../../utils/timeUtil";
 
 const TimeCtl: React.FC<{
-  min: time;
-  max: time;
-  value: time;
-  onChange: React.Dispatch<React.SetStateAction<time>>;
+  min: Time;
+  max: Time;
+  value: Time;
+  onChange: React.Dispatch<React.SetStateAction<Time>>;
 }> = (props) => {
   return (
     <input
@@ -13,7 +13,7 @@ const TimeCtl: React.FC<{
       min={props.min.getTimeString()}
       max={props.max.getTimeString()}
       value={props.value.getTimeString()}
-      onChange={(e) => props.onChange(time.fromString(e.target.value))}
+      onChange={(e) => props.onChange(Time.fromString(e.target.value))}
     />
   );
 };

@@ -1,32 +1,39 @@
 import React, { useState } from "react";
-import { time } from "../../utils/timeUtil";
+import { Time } from "../../utils/timeUtil";
 import "./workStartTimeStyle.css";
 import NormalButton from "../atoms/button/NormalButton";
 import SecondaryButton from "../atoms/button/SecondaryButton";
 import TimeViewSetting from "./TimeViewSetting";
+import { useEditingContext } from "../../providers/EditStatusProvider";
 
 const WorkStartTime: React.FC<{
-  value: time;
-  setValue: React.Dispatch<React.SetStateAction<time>>;
+  value: Time;
+  onSetValue: (newTime: Time) => void;
 }> = (props) => {
   const [editing, setEditing] = useState(false);
+  const { setEditing: setWholeEditing } = useEditingContext();
+  const [time, setTime] = useState(props.value);
+
+  const onEditStateChange = (newState: boolean) => {
+    setWholeEditing(newState);
+    setEditing(newState);
+    if (!newState) props.onSetValue(time);
+  };
 
   return (
     <div className="workStartContainer">
       <div className="workStartLeftItem workStartTime">
-        <TimeViewSetting
-          value={props.value}
-          setValue={props.setValue}
-          editing={editing}
-        />
+        <TimeViewSetting value={time} setValue={setTime} editing={editing} />
       </div>
       <div className="workStartRightItem">
         {editing ? (
-          <SecondaryButton onClick={() => setEditing(false)}>
+          <SecondaryButton onClick={() => onEditStateChange(false)}>
             save
           </SecondaryButton>
         ) : (
-          <NormalButton onClick={() => setEditing(true)}>edit</NormalButton>
+          <NormalButton onClick={() => onEditStateChange(true)}>
+            edit
+          </NormalButton>
         )}
       </div>
     </div>

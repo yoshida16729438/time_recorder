@@ -1,16 +1,16 @@
-import { Dispatch, FC, SetStateAction } from "react";
-import { time } from "../../utils/timeUtil";
+import { FC } from "react";
+import { Time } from "../../utils/timeUtil";
 import WorkStartTime from "../molecules/WorkStartTime";
 
 const WorkStartTimeOrgan: FC<{
-  workStartTime: time;
-  setWorkStartTime: Dispatch<SetStateAction<time>>;
+  workStartTime: Time;
+  onSetWorkStartTime: (newTime: Time) => void;
 }> = (props) => {
   return (
     <div>
       <WorkStartTime
         value={props.workStartTime}
-        setValue={props.setWorkStartTime}
+        onSetValue={props.onSetWorkStartTime}
       />
     </div>
   );

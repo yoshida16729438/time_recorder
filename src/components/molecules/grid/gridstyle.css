@@ -9,7 +9,7 @@
 }
 
 .grid-3cols {
-  grid-template-columns: 2fr 9fr 2fr;
+  grid-template-columns: 2fr 7fr 2fr;
 }
 .grid-item{
     border-bottom: 1px solid #ccc;

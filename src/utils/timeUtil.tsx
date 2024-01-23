@@ -1,4 +1,4 @@
-export class time {
+export class Time {
   private constructor(
     public readonly hour: number,
     public readonly minute: number
@@ -6,7 +6,7 @@ export class time {
 
   public static getCurrent = () => {
     const now = new Date();
-    return new time(now.getHours(), now.getMinutes());
+    return new Time(now.getHours(), now.getMinutes());
   };
 
   /**
@@ -16,11 +16,11 @@ export class time {
    */
   public static fromString = (timeString: string) => {
     const spl = timeString.split(":");
-    return new time(Number(spl[0]), Number(spl[1]));
+    return new Time(Number(spl[0]), Number(spl[1]));
   };
 
-  public timeSpanFrom = (from: time) => {
-    return timeSpan.between(from, this);
+  public timeSpanFrom = (from: Time) => {
+    return TimeSpan.between(from, this);
   };
 
   public getTimeString = () =>
@@ -29,13 +29,13 @@ export class time {
       .padStart(2, "0")}`;
 }
 
-export class timeSpan {
+export class TimeSpan {
   private constructor(
     public readonly hours: number,
     public readonly minutes: number
   ) {}
 
-  public static between = (from: time, to: time) => {
+  public static between = (from: Time, to: Time) => {
     let hour = to.hour;
     let minute = to.minute;
 
@@ -47,6 +47,6 @@ export class timeSpan {
 
     hour -= from.hour;
 
-    return new timeSpan(hour, minute);
+    return new TimeSpan(hour, minute);
   };
 }
