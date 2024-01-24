@@ -10,7 +10,8 @@ const TimeRecordLogOrgan: FC<{
   records: TimeRecord[];
   onEditRecord: (index: number, newCode: string, newTime: Time) => void;
 }> = ({ workStartTime, records, onEditRecord }) => {
-  const slicedRecords = records.slice(0, -2);
+  const slicedRecords = records.slice(0, -1);
+  
   const startTimes = [
     workStartTime,
     ...records.map((record) => record.endTime),
@@ -42,6 +43,7 @@ const TimeRecordLogOrgan: FC<{
           startTime={lastStartTime}
           record={records[lastIndex]}
           onEditRecord={onEditRecordGenerator(lastIndex)}
+          key={lastIndex}
         />
       )}
     </Grid>

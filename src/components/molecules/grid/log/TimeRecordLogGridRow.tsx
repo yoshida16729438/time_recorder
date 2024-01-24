@@ -4,7 +4,7 @@ import { TimeRecord } from "../../../../types/types";
 import { useEditingContext } from "../../../../providers/EditStatusProvider";
 import "../gridstyle.css";
 import TimeViewSetting, { validateTime } from "../../TimeViewSetting";
-import CodeCtl, {validateCode } from "../../CodeCtl";
+import CodeCtl, { validateCode } from "../../CodeCtl";
 import NormalButton from "../../../atoms/button/NormalButton";
 import { useCodeContext } from "../../../../providers/CodeProvider";
 
@@ -19,7 +19,7 @@ const TimeRecordLogGridRow: FC<{
   const { editing: wholeEditing, setEditing: setWholeEditing } =
     useEditingContext();
   const [newTime, setNewTime] = useState(record.endTime);
-  const [code, setCode] = useState("");
+  const [code, setCode] = useState(record.code);
   const [useNewCode, setUseNewCode] = useState(false);
   const [newCode, setNewCode] = useState("");
 
@@ -54,7 +54,7 @@ const TimeRecordLogGridRow: FC<{
   return (
     <>
       <div className="grid-item">
-        {startTime.getTimeString()} ～ {""}
+        {`${startTime.getTimeString()} ～ `}
         <TimeViewSetting
           value={newTime}
           setValue={setNewTime}
@@ -64,11 +64,15 @@ const TimeRecordLogGridRow: FC<{
         />
       </div>
       <div className="grid-item">
-        <CodeCtl
-          selectCodeSetter={{ value: code, setValue: setCode }}
-          useNewCodeSetter={{ value: useNewCode, setValue: setUseNewCode }}
-          newCodeSetter={{ value: newCode, setValue: setNewCode }}
-        />
+        {editing ? (
+          <CodeCtl
+            selectCodeSetter={{ value: code, setValue: setCode }}
+            useNewCodeSetter={{ value: useNewCode, setValue: setUseNewCode }}
+            newCodeSetter={{ value: newCode, setValue: setNewCode }}
+          />
+        ) : (
+          code
+        )}
       </div>
       <div className="grid-item">
         <NormalButton onClick={editing ? onEndEdit : onStartEdit}>

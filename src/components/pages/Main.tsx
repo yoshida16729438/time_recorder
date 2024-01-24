@@ -14,7 +14,6 @@ const Main: FC = () => {
   const [startTime, setStartTime] = useState(Time.getCurrent());
   const [lastRecordedTime, setLastRecordedTime] = useState(startTime);
   const [timeRecords, setTimeRecords] = useState<TimeRecord[]>([]);
-  console.log(timeRecords);
 
   const onSetWorkStartTime = (newTime: Time) => {
     setStartTime(newTime);
