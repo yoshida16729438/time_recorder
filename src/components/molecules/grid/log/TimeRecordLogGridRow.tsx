@@ -3,16 +3,17 @@ import { Time } from "../../../../utils/timeUtil";
 import { TimeRecord } from "../../../../types/types";
 import { useEditingContext } from "../../../../providers/EditStatusProvider";
 import "../gridstyle.css";
-import TimeViewSetting from "../../TimeViewSetting";
-import CodeCtl, { validate } from "../../CodeCtl";
+import TimeViewSetting, { validateTime } from "../../TimeViewSetting";
+import CodeCtl, {validateCode } from "../../CodeCtl";
 import NormalButton from "../../../atoms/button/NormalButton";
 import { useCodeContext } from "../../../../providers/CodeProvider";
 
-const TimeRecordGridItem: FC<{
+const TimeRecordLogGridRow: FC<{
   startTime: Time;
   record: TimeRecord;
   onEditRecord: (newTime: Time, newCode: string) => void;
-}> = ({ startTime, record, onEditRecord }) => {
+  editTimeLimitMax?: Time;
+}> = ({ startTime, record, onEditRecord, editTimeLimitMax }) => {
   const { codes, addNewCode } = useCodeContext();
   const [editing, setEditing] = useState(false);
   const { editing: wholeEditing, setEditing: setWholeEditing } =
@@ -32,21 +33,22 @@ const TimeRecordGridItem: FC<{
   };
 
   const onEndEdit = () => {
-    if (validate(code, useNewCode, newCode)) {
-      if (useNewCode) {
-        if (codes.indexOf(newCode) === -1) {
-          addNewCode(newCode);
-          setUseNewCode(false);
-          setNewCode("");
-          setCode(newCode);
-        }
-        onEditRecord(newTime, newCode);
-      } else {
-        onEditRecord(newTime, code);
+    if (!validateTime(newTime, startTime, editTimeLimitMax)) return;
+    if (!validateCode(code, useNewCode, newCode)) return;
+
+    if (useNewCode) {
+      if (codes.indexOf(newCode) === -1) {
+        addNewCode(newCode);
+        setUseNewCode(false);
+        setNewCode("");
+        setCode(newCode);
       }
-      setEditing(false);
-      setWholeEditing(false);
+      onEditRecord(newTime, newCode);
+    } else {
+      onEditRecord(newTime, code);
     }
+    setEditing(false);
+    setWholeEditing(false);
   };
 
   return (
@@ -57,6 +59,8 @@ const TimeRecordGridItem: FC<{
           value={newTime}
           setValue={setNewTime}
           editing={editing}
+          min={startTime}
+          max={editTimeLimitMax}
         />
       </div>
       <div className="grid-item">
@@ -75,4 +79,4 @@ const TimeRecordGridItem: FC<{
   );
 };
 
-export default TimeRecordGridItem;
+export default TimeRecordLogGridRow;

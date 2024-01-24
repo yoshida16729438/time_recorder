@@ -27,6 +27,10 @@ export class Time {
     `${this.hour.toString().padStart(2, "0")}:${this.minute
       .toString()
       .padStart(2, "0")}`;
+
+  public orMore = (compareTo: Time) => {
+    return this.timeSpanFrom(compareTo).hours >= 0;
+  };
 }
 
 export class TimeSpan {

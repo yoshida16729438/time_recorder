@@ -2,20 +2,21 @@ import { FC } from "react";
 import { Time } from "../../utils/timeUtil";
 import "../molecules/grid/gridstyle.css";
 import AddTimeRecordGridHeader from "../molecules/grid/add/AddTimeRecordGridHeader";
-import AddTimeRecordGridItem from "../molecules/grid/add/AddTimeRecordGridItem";
+import AddTimeRecordGridRow from "../molecules/grid/add/AddTimeRecordGridRow";
+import Grid from "../molecules/grid/container/Grid";
 
 const AddTimeRecordOrgan: FC<{
   lastRecordedTime: Time;
   onAddRecord: (code: string) => void;
 }> = ({ lastRecordedTime, onAddRecord }) => {
   return (
-    <div className="grid grid-3cols">
+    <Grid columnCount={3}>
       <AddTimeRecordGridHeader />
-      <AddTimeRecordGridItem
+      <AddTimeRecordGridRow
         lastRecordedTime={lastRecordedTime}
         onAddRecord={onAddRecord}
       />
-    </div>
+    </Grid>
   );
 };
 

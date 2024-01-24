@@ -23,7 +23,13 @@ const WorkStartTime: React.FC<{
   return (
     <div className="workStartContainer">
       <div className="workStartLeftItem workStartTime">
-        <TimeViewSetting value={time} setValue={setTime} editing={editing} />
+        <TimeViewSetting
+          value={time}
+          setValue={setTime}
+          editing={editing}
+          min={Time.fromString("06:00")}
+          max={Time.fromString("15:00")}
+        />
       </div>
       <div className="workStartRightItem">
         {editing ? (

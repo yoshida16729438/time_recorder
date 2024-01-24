@@ -37,7 +37,7 @@ const CodeCtl: React.FC<{
 
 export default CodeCtl;
 
-export const validate = (
+export const validateCode = (
   code: string,
   useNewCode: boolean,
   newCode: string

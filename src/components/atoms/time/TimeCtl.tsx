@@ -3,7 +3,7 @@ import { Time } from "../../../utils/timeUtil";
 
 const TimeCtl: React.FC<{
   min: Time;
-  max: Time;
+  max?: Time;
   value: Time;
   onChange: React.Dispatch<React.SetStateAction<Time>>;
 }> = (props) => {
@@ -11,7 +11,7 @@ const TimeCtl: React.FC<{
     <input
       type="time"
       min={props.min.getTimeString()}
-      max={props.max.getTimeString()}
+      max={props.max?.getTimeString()}
       value={props.value.getTimeString()}
       onChange={(e) => props.onChange(Time.fromString(e.target.value))}
     />
