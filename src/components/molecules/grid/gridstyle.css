@@ -11,8 +11,14 @@
 .grid-3cols {
   grid-template-columns: 2fr 7fr 2fr;
 }
-.grid-item{
-    border-bottom: 1px solid #ccc;
-    border-left: 1px solid #ccc;
-    padding: 5px 5px 5px 5px;
+
+.grid-item {
+  border-bottom: 1px solid #ccc;
+  /*border-left: 1px solid #ccc;*/
+  padding: 5px 5px 5px 5px;
+}
+
+.grid-title {
+  border-bottom: 2px double #ccc;
+  padding: 5px 5px 5px 5px;
 }
