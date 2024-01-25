@@ -3,7 +3,7 @@ import { Time } from "../../utils/timeUtil";
 import "./workStartTimeStyle.css";
 import NormalButton from "../atoms/button/NormalButton";
 import SecondaryButton from "../atoms/button/SecondaryButton";
-import TimeViewSetting from "./TimeViewSetting";
+import TimeViewSetting, { validateTime } from "./TimeViewSetting";
 import { useEditingContext } from "../../providers/EditStatusProvider";
 
 const WorkStartTime: React.FC<{
@@ -14,7 +14,11 @@ const WorkStartTime: React.FC<{
   const { setEditing: setWholeEditing } = useEditingContext();
   const [time, setTime] = useState(props.value);
 
+  const minTime = Time.fromString("06:00");
+  const maxTime = Time.fromString("15:00");
+
   const onEditStateChange = (newState: boolean) => {
+    if (!validateTime(time, minTime, maxTime)) return;
     setWholeEditing(newState);
     setEditing(newState);
     if (!newState) props.onSetValue(time);
@@ -27,8 +31,8 @@ const WorkStartTime: React.FC<{
           value={time}
           setValue={setTime}
           editing={editing}
-          min={Time.fromString("06:00")}
-          max={Time.fromString("15:00")}
+          min={minTime}
+          max={maxTime}
         />
       </div>
       <div className="workStartRightItem">

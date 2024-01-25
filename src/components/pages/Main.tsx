@@ -9,6 +9,7 @@ import Container from "../templates/Container";
 import AddTimeRecordOrgan from "../organisms/AddTimeRecordOrgan";
 import { TimeRecord } from "../../types/types";
 import TimeRecordLogOrgan from "../organisms/TimeRecordLogOrgan";
+import TotalTimeOrgan from "../organisms/TotalTimeOrgan";
 
 const Main: FC = () => {
   const [startTime, setStartTime] = useState(Time.getCurrent());
@@ -33,6 +34,7 @@ const Main: FC = () => {
       newRecords[index].code = newCode;
       return newRecords;
     });
+    if (index === timeRecords.length - 1) setLastRecordedTime(newTime);
   };
 
   return (
@@ -58,6 +60,9 @@ const Main: FC = () => {
             records={timeRecords}
             onEditRecord={onEditRecord}
           />
+          <hr />
+          <h1>工数集計</h1>
+          <TotalTimeOrgan records={timeRecords} workStartTime={startTime} />
         </Container>
       </EditingProvider>
     </CodeContextProvider>

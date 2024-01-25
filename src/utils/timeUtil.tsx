@@ -53,4 +53,14 @@ export class TimeSpan {
 
     return new TimeSpan(hour, minute);
   };
+
+  public plus = (target: TimeSpan) => {
+    let minutes = this.minutes + target.minutes;
+    let hours = this.hours + target.hours;
+    if (minutes >= 60) {
+      minutes -= 60;
+      hours += 1;
+    }
+    return new TimeSpan(hours, minutes);
+  };
 }

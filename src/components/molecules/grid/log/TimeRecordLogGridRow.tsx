@@ -7,6 +7,7 @@ import TimeViewSetting, { validateTime } from "../../TimeViewSetting";
 import CodeCtl, { validateCode } from "../../CodeCtl";
 import NormalButton from "../../../atoms/button/NormalButton";
 import { useCodeContext } from "../../../../providers/CodeProvider";
+import SecondaryButton from "../../../atoms/button/SecondaryButton";
 
 const TimeRecordLogGridRow: FC<{
   startTime: Time;
@@ -75,9 +76,11 @@ const TimeRecordLogGridRow: FC<{
         )}
       </div>
       <div className="grid-item">
-        <NormalButton onClick={editing ? onEndEdit : onStartEdit}>
-          {editing ? "save" : "edit"}
-        </NormalButton>
+        {editing ? (
+          <SecondaryButton onClick={onEndEdit}>save</SecondaryButton>
+          ) : (
+          <NormalButton onClick={onStartEdit}>edit</NormalButton>
+        )}
       </div>
     </>
   );
