@@ -36,6 +36,12 @@ const Main: FC = () => {
     if (index === timeRecords.length - 1) setLastRecordedTime(newTime);
   };
 
+  //画面を閉じて/更新してログが消えるのを防止
+  window.addEventListener("beforeunload", (e) => {
+    //実際はメッセージ表示されず
+    e.returnValue = "現在の記録内容が削除されますが、続行しますか？";
+  });
+
   return (
     <CodeContextProvider>
       <Header />
