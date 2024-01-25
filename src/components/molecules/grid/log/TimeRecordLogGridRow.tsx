@@ -1,7 +1,6 @@
 import { FC, useState } from "react";
 import { Time } from "../../../../utils/timeUtil";
 import { TimeRecord } from "../../../../types/types";
-import { useEditingContext } from "../../../../providers/EditStatusProvider";
 import "../gridstyle.css";
 import TimeViewSetting, { validateTime } from "../../TimeViewSetting";
 import CodeCtl, { validateCode } from "../../CodeCtl";
@@ -17,20 +16,13 @@ const TimeRecordLogGridRow: FC<{
 }> = ({ startTime, record, onEditRecord, editTimeLimitMax }) => {
   const { codes, addNewCode } = useCodeContext();
   const [editing, setEditing] = useState(false);
-  const { editing: wholeEditing, setEditing: setWholeEditing } =
-    useEditingContext();
   const [newTime, setNewTime] = useState(record.endTime);
   const [code, setCode] = useState(record.code);
   const [useNewCode, setUseNewCode] = useState(false);
   const [newCode, setNewCode] = useState("");
 
   const onStartEdit = () => {
-    if (wholeEditing) {
-      alert("他の項目が編集中のため追加できません");
-    } else {
-      setEditing(true);
-      setWholeEditing(true);
-    }
+    setEditing(true);
   };
 
   const onEndEdit = () => {
@@ -49,7 +41,6 @@ const TimeRecordLogGridRow: FC<{
       onEditRecord(newTime, code);
     }
     setEditing(false);
-    setWholeEditing(false);
   };
 
   return (
@@ -78,7 +69,7 @@ const TimeRecordLogGridRow: FC<{
       <div className="grid-item">
         {editing ? (
           <SecondaryButton onClick={onEndEdit}>save</SecondaryButton>
-          ) : (
+        ) : (
           <NormalButton onClick={onStartEdit}>edit</NormalButton>
         )}
       </div>

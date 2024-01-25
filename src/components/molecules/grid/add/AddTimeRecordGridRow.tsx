@@ -1,7 +1,6 @@
 import { FC, useState } from "react";
 import { Time } from "../../../../utils/timeUtil";
 import { useCodeContext } from "../../../../providers/CodeProvider";
-import { useEditingContext } from "../../../../providers/EditStatusProvider";
 import CodeCtl, { validateCode } from "../../CodeCtl";
 import NormalButton from "../../../atoms/button/NormalButton";
 
@@ -10,27 +9,22 @@ const AddTimeRecordGridRow: FC<{
   onAddRecord: (code: string) => void;
 }> = (props) => {
   const { codes, addNewCode } = useCodeContext();
-  const { editing } = useEditingContext();
   const [code, setCode] = useState("");
   const [useNewCode, setUseNewCode] = useState(false);
   const [newCode, setNewCode] = useState("");
 
   const onClickAdd = () => {
-    if (editing) {
-      alert("他の項目が編集中のため追加できません");
-    } else {
-      if (validateCode(code, useNewCode, newCode)) {
-        if (useNewCode) {
-          if (codes.indexOf(newCode) === -1) {
-            addNewCode(newCode);
-            setUseNewCode(false);
-            setNewCode("");
-            setCode(newCode);
-          }
-          props.onAddRecord(newCode);
-        } else {
-          props.onAddRecord(code);
+    if (validateCode(code, useNewCode, newCode)) {
+      if (useNewCode) {
+        if (codes.indexOf(newCode) === -1) {
+          addNewCode(newCode);
+          setUseNewCode(false);
+          setNewCode("");
+          setCode(newCode);
         }
+        props.onAddRecord(newCode);
+      } else {
+        props.onAddRecord(code);
       }
     }
   };
