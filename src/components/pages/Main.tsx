@@ -12,18 +12,10 @@ import TotalTimeOrgan from "../organisms/TotalTimeOrgan";
 
 const Main: FC = () => {
   const [startTime, setStartTime] = useState(Time.getCurrent());
-  const [lastRecordedTime, setLastRecordedTime] = useState(startTime);
   const [timeRecords, setTimeRecords] = useState<TimeRecord[]>([]);
 
-  const onSetWorkStartTime = (newTime: Time) => {
-    setStartTime(newTime);
-    if (timeRecords.length === 0) setLastRecordedTime(newTime);
-  };
-
   const onAddRecord = (code: string) => {
-    const currentTime = Time.getCurrent();
-    setLastRecordedTime(currentTime);
-    setTimeRecords((prev) => [...prev, { endTime: currentTime, code }]);
+    setTimeRecords((prev) => [...prev, { endTime: Time.getCurrent(), code }]);
   };
 
   const onEditRecord = (index: number, newCode: string, newTime: Time) => {
@@ -33,7 +25,6 @@ const Main: FC = () => {
       newRecords[index].code = newCode;
       return newRecords;
     });
-    if (index === timeRecords.length - 1) setLastRecordedTime(newTime);
   };
 
   //画面を閉じて/更新してログが消えるのを防止
@@ -49,13 +40,17 @@ const Main: FC = () => {
         <h1>勤務開始時刻</h1>
         <WorkStartTimeOrgan
           workStartTime={startTime}
-          onSetWorkStartTime={onSetWorkStartTime}
+          onSetWorkStartTime={setStartTime}
         />
         <hr />
         <h1>業務切替ログ</h1>
         <h2>レコード追加</h2>
         <AddTimeRecordOrgan
-          lastRecordedTime={lastRecordedTime}
+          lastRecordedTime={
+            timeRecords.length === 0
+              ? startTime
+              : timeRecords[timeRecords.length - 1].endTime
+          }
           onAddRecord={onAddRecord}
         />
         <h2>ログ</h2>
