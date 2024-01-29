@@ -40,6 +40,7 @@ const AddTimeRecordGridRow: FC<{
           selectCodeSetter={{ value: code, setValue: setCode }}
           useNewCodeSetter={{ value: useNewCode, setValue: setUseNewCode }}
           newCodeSetter={{ value: newCode, setValue: setNewCode }}
+          idSuffix="add"
         />
       </div>
       <div className="grid-item">

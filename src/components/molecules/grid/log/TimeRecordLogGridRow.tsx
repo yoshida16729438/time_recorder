@@ -13,7 +13,8 @@ const TimeRecordLogGridRow: FC<{
   record: TimeRecord;
   onEditRecord: (newTime: Time, newCode: string) => void;
   editTimeLimitMax?: Time;
-}> = ({ startTime, record, onEditRecord, editTimeLimitMax }) => {
+  idSuffix: string;
+}> = ({ startTime, record, onEditRecord, editTimeLimitMax, idSuffix }) => {
   const { codes, addNewCode } = useCodeContext();
   const [editing, setEditing] = useState(false);
   const [newTime, setNewTime] = useState(record.endTime);
@@ -61,6 +62,7 @@ const TimeRecordLogGridRow: FC<{
             selectCodeSetter={{ value: code, setValue: setCode }}
             useNewCodeSetter={{ value: useNewCode, setValue: setUseNewCode }}
             newCodeSetter={{ value: newCode, setValue: setNewCode }}
+            idSuffix={idSuffix}
           />
         ) : (
           code

@@ -6,6 +6,7 @@ const CodeCtl: React.FC<{
   selectCodeSetter: ValueSetterPair<string>;
   useNewCodeSetter: ValueSetterPair<boolean>;
   newCodeSetter: ValueSetterPair<string>;
+  idSuffix: string;
 }> = (props) => {
   return (
     <div>
@@ -13,6 +14,7 @@ const CodeCtl: React.FC<{
         <SelectCode
           disabled={props.useNewCodeSetter.value}
           valueSetter={props.selectCodeSetter}
+          id={`SelectCode-${props.idSuffix}`}
         />
       </div>
       <label>
@@ -20,6 +22,7 @@ const CodeCtl: React.FC<{
           type="checkbox"
           checked={props.useNewCodeSetter.value}
           onChange={(e) => props.useNewCodeSetter.setValue(e.target.checked)}
+          id={`chk-${props.idSuffix}`}
         />
         新しいチャージコードを使用&nbsp;&nbsp;&nbsp;
       </label>
@@ -30,6 +33,7 @@ const CodeCtl: React.FC<{
         disabled={!props.useNewCodeSetter.value}
         value={props.newCodeSetter.value}
         onChange={(e) => props.newCodeSetter.setValue(e.target.value)}
+        id={`txt-${props.idSuffix}`}
       />
     </div>
   );

@@ -7,15 +7,7 @@ type CodeContextType = {
 
 const CodeContext = createContext({} as CodeContextType);
 
-const defaultCodes = [
-  "研修関連活動(参加)",
-  "社内コミュニケーション",
-  "自己成長",
-  "従業員必須対応事項",
-  "暫定チャージコード",
-  "部内コミュニケーション",
-  "休憩",
-];
+declare const defaultCodes: string[];
 
 export const CodeContextProvider: FC<{ children: ReactNode }> = (props) => {
   const [codes, setCodes] = useState(defaultCodes);

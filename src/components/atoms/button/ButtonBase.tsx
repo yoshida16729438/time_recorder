@@ -8,7 +8,7 @@ const ButtonBase: React.FC<ButtonType & { backgroundColor: string }> = (
   return (
     <button
       onClick={props.onClick}
-      className="buttonTemplate"
+      className={`buttonTemplate ${props.className ? props.className : ""}`}
       style={{ backgroundColor: props.backgroundColor }}
     >
       {props.children}

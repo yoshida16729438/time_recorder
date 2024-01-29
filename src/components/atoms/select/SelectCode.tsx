@@ -5,6 +5,7 @@ import { ValueSetterPair } from "../../../types/types";
 const SelectCode: React.FC<{
   disabled: boolean;
   valueSetter: ValueSetterPair<string>;
+  id: string;
 }> = (props) => {
   const { codes } = useCodeContext();
 
@@ -15,6 +16,7 @@ const SelectCode: React.FC<{
       title="チャージコード選択"
       value={props.valueSetter.value}
       onChange={(e) => props.valueSetter.setValue(e.target.value)}
+      id={props.id}
     >
       <option value="">選択してください</option>
       {codes.map((code) => (
