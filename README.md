@@ -1,9 +1,11 @@
 # 概要
 1分単位で作業内容を記録し、合計の時間を計算するシングルページアプリです。\
-ReactとTypescriptで作ります。\
-サーバーとの通信はしないので、ビルドして得られるhtml・css・javascriptを繋ぎ合わせればスタンドアロンで利用できます。
+ReactとTypescriptで作りました。\
+記録はメモリ上のみで行っているので、画面を更新すると消えます。
+サーバーとの通信はしないので、npm run buildして得られるhtml・css・javascriptを繋ぎ合わせればスタンドアロンで利用できます。\
+選択肢の初期値のみpublic/codes.jsに分けてあるので、初期値を変更したい場合はそこだけいじればOKです。
 
-以下はテンプレートのまま
+以下はほぼテンプレートのまま
 
 ---
 
@@ -22,11 +24,6 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
 ### `npm run build`
 
