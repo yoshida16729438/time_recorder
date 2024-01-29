@@ -16,7 +16,7 @@ const WorkStartTime: React.FC<{
   const maxTime = Time.fromString("15:00");
 
   const onEditStateChange = (newState: boolean) => {
-    if (!validateTime(time, minTime, maxTime)) return;
+    if (editing && !validateTime(time, minTime, maxTime)) return;
     setEditing(newState);
     if (!newState) props.onSetValue(time);
   };
